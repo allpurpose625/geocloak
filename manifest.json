@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "GeoCloak",
+  "version": "1.2.1",
+  "description": "One-click residential geo, timezone, locale & WebRTC alignment with live posture monitor and WhoX-style self-tests.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "geocloak@local.privacy",
+      "strict_min_version": "115.0"
+    }
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "alarms",
+    "privacy",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "GeoCloak",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "inject.js",
+        "lib/profiles.json",
+        "hud.js",
+        "hud.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
