@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GeoCloak",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "One-click residential geo, timezone, locale & WebRTC alignment with live posture monitor and WhoX-style self-tests.",
   "browser_specific_settings": {
     "gecko": {
@@ -14,7 +14,9 @@
     "scripting",
     "alarms",
     "privacy",
-    "notifications"
+    "notifications",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -41,12 +43,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content.js"
-      ],
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true
@@ -54,19 +52,21 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "inject.js",
-        "lib/profiles.json",
-        "hud.js",
-        "hud.css"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
+      "resources": ["inject.js", "lib/profiles.json", "hud.js", "hud.css"],
+      "matches": ["<all_urls>"]
     }
   ],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "privacy_hardening",
+        "enabled": true,
+        "path": "rules/privacy_hardening.json"
+      }
+    ]
   }
 }
